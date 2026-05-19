@@ -1,4 +1,5 @@
 import Foundation
+import Status
 
 public struct WarningAction: Equatable {
     public var title: String
@@ -27,7 +28,15 @@ public class WarningStateManager: ObservableObject {
 
     @Published public var currentWarning: WarningContent?
 
-    private init() {}
+    private init() {
+        DistributedNotificationCenter.default().addObserver(
+            forName: .authStatusDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.dismissWarning()
+        }
+    }
 
     public func setWarning(_ warning: WarningContent) {
         DispatchQueue.main.async { [weak self] in

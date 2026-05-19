@@ -45,7 +45,23 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr checks "${{ github.ref_name }}" --watch
+          for i in $(seq 1 60); do
+            other_checks=$(gh pr checks "${{ github.ref_name }}" | grep -v "create-pr" || true)
+            if echo "$other_checks" | grep -wq "fail"; then
+              echo "Required checks failed."
+              exit 1
+            fi
+            if [ -z "$other_checks" ]; then
+              echo "No other checks found yet, waiting..."
+            elif ! echo "$other_checks" | grep -wq "pending"; then
+              echo "All required checks passed."
+              exit 0
+            fi
+            echo "Waiting for checks..."
+            sleep 10
+          done
+          echo "Timed out waiting for required checks."
+          exit 1
 
       - name: Merge pull request
         env:

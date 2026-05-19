@@ -516,6 +516,7 @@ enum CLSMessageType {
     case chatLimitReached
     case completionLimitReached
     case byokLimitedReached
+    case monthlyAICreditsLimitReached
     case other
     
     var summary: String {
@@ -526,6 +527,8 @@ enum CLSMessageType {
             return "Monthly Completion Limit Reached"
         case .byokLimitedReached:
             return "BYOK Limit Reached"
+        case .monthlyAICreditsLimitReached:
+            return "Monthly AI Credits Limit Reached"
         case .other:
             return "CLS Error"
         }
@@ -535,14 +538,6 @@ enum CLSMessageType {
 struct CLSMessage {
     let summary: String
     let detail: String
-}
-
-func extractDateFromCLSMessage(_ message: String) -> String? {
-    let pattern = #"until (\d{1,2}/\d{1,2}/\d{4}, \d{1,2}:\d{2}:\d{2} [AP]M)"#
-    if let range = message.range(of: pattern, options: .regularExpression) {
-        return String(message[range].dropFirst(6))
-    }
-    return nil
 }
 
 func getCLSMessageSummary(_ message: String) -> CLSMessage {
@@ -555,16 +550,11 @@ func getCLSMessageSummary(_ message: String) -> CLSMessage {
         messageType = .completionLimitReached
     } else if message.contains("BYOK") {
         messageType = .byokLimitedReached
+    } else if message.contains("You've used your monthly AI Credits") {
+        messageType = .monthlyAICreditsLimitReached
     } else {
         messageType = .other
     }
     
-    let detail: String
-    if let date = extractDateFromCLSMessage(message) {
-        detail = "Visit GitHub to check your usage and upgrade to Copilot Pro or wait until \(date) for your limit to reset."
-    } else {
-        detail = message
-    }
-    
-    return CLSMessage(summary: messageType.summary, detail: detail)
+    return CLSMessage(summary: messageType.summary, detail: message)
 }

@@ -179,11 +179,14 @@ public class QuotaNotifierImpl: NSObject, QuotaNotifier {
         Task { @MainActor in
             let quotaInfo = await Status.shared.getQuotaInfo()
             let actions = buildWarningActions(params: params, quotaInfo: quotaInfo)
-            WarningStateManager.shared.setWarning(WarningContent(
-                message: params.message,
-                severity: params.severity,
-                actions: actions
-            ))
+            let isCompletionsWarning = params.message.localizedCaseInsensitiveContains("completions")
+            if !isCompletionsWarning {
+                WarningStateManager.shared.setWarning(WarningContent(
+                    message: params.message,
+                    severity: params.severity,
+                    actions: actions
+                ))
+            }
             await NotificationCenterCoordinator.shared.setupIfNeeded()
             self.registerCategoriesIfNeeded()
             await sendAppleNotification(params, categoryID: notificationCategoryID(for: actions))
