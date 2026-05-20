@@ -1,12 +1,13 @@
-### GitHub Copilot for Xcode 0.49.0
+### GitHub Copilot for Xcode 0.50.0
 
 **🚀 Highlights**
 
-- **Native Anthropic Messages API**: Adds support for the native Anthropic Messages API (`/v1/messages`) endpoint, enabling direct integration with Anthropic-compatible providers.
-- **Thinking in Chat**: Reasoning-capable models can now show their thinking process in chat for greater transparency.
-- **Better Rate Limit Feedback**: Enhanced notifications and error messages help you understand and respond to rate limit events.
+- **Reasoning Effort**: Control how deeply reasoning-capable models think before responding. You can now select reasoning efforts directly from the model picker for supported models, letting you balance response speed against answer quality.
+
+- **Bring Your Own Key (BYOK) is now Generally Available**: Bring Your Own Key support has graduated from preview and is now available to all users. Configure your own API keys for third-party models directly in Copilot for Xcode settings.
 
 **💪 Changes**
 
-- Refined the tool call item UI in agent progress for a cleaner, more readable layout.
-- Updated Copilot language server to 1.465.5.
+- Added internal support for upcoming [usage-based billing](https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/), including billing updates for the usage panel, usage notifications, and model picker. This will be visible once usage-based billing rolls out.
+
+    We **strongly recommend** upgrading to this version as soon as possible.

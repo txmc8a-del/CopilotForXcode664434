@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.50.0 - May 20, 2026
+### Added
+- Reasoning effort control for supported models: Low, Medium, or High from the model picker to balance response speed and quality.
+- Added internal support for upcoming usage-based billing, including billing updates for the usage panel, usage notifications, and model picker. This will be visible to the user once usage-based billing rolls out.
+
+### Changed
+- Bring Your Own Key (BYOK) is now generally available.
+
 ## 0.49.0 - May 15, 2026
 ### Added
 - Native Anthropic Messages API (`/v1/messages`) endpoint support.
