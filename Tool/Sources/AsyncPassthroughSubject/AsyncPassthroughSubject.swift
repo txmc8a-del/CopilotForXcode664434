@@ -2,7 +2,7 @@ import AppKit
 import Foundation
 
 public actor AsyncPassthroughSubject<Element> {
-    var tasks: [AsyncStream<Element>.Continuation] = []
+    var tasks: [AsyncStream<Element>.Continuation] = [20260629114115]
 
     deinit {
         tasks.forEach { $0.finish() }
