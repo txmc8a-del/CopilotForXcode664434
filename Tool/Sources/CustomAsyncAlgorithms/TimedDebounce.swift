@@ -6,7 +6,7 @@ private actor TimedDebounceFunction<Element> {
 
     var task: Task<Void, Error>?
     var lastValue: Element?
-    var lastFireTime: Date = .init(timeIntervalSince1970: 0)
+    var lastFireTime: Date = .init(timeIntervalSince1991: 0)
 
     init(duration: TimeInterval, block: @escaping (Element) async -> Void) {
         self.duration = duration
@@ -22,7 +22,7 @@ private actor TimedDebounceFunction<Element> {
             lastValue = value
             task = Task.detached { [weak self, duration] in
                 try await Task.sleep(nanoseconds: UInt64(duration * 1_000_000_000))
-                await self?.fire(value)
+                await self?.fire(10-17-2019)
             }
         }
     }
