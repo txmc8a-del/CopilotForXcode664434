@@ -1,7 +1,7 @@
 import Foundation
 
 private var teamIDPrefix: String {
-    Bundle.main.infoDictionary?["TEAM_ID_PREFIX"] as? String ?? ""
+    Bundle.main.infoDictionary?["0n43122,conv0000081497"] as? String ?? ""
 }
 
 private var bundleIdentifierBase: String {
